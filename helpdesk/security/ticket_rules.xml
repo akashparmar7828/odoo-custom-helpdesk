@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ticket_visibility_agent_rule" model="ir.rule">
+        <field name="name">Helpdesk Ticket Visibility</field>
+        <field name="model_id" ref="model_custom_helpdesk_ticket"/>
+        <field name="domain_force">
+            ['|',
+                ('team_id.visibility','=','company'),
+                '|',
+                    '&amp;',
+                        ('team_id.visibility','=','private'),
+                        ('team_id.member_ids','in',[user.id]),
+                    '&amp;',
+                        ('team_id.visibility','=','assigned_only'),
+                        ('user_id','=',user.id)
+            ]
+        </field>
+        <field name="groups" eval="[(4, ref('helpdesk.group_helpdesk_agent'))]"/>
+    </record>
+    <record id="ticket_visibility_manager_rule" model="ir.rule">
+        <field name="name">Helpdesk Manager Full Access</field>
+        <field name="model_id" ref="model_custom_helpdesk_ticket"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('helpdesk.group_helpdesk_manager'))]"/>
+    </record>
+</odoo>

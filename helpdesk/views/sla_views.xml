@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sla_form" model="ir.ui.view">
+        <field name="model">custom.helpdesk.sla</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="team_id"/>
+                        <field name="priority"/>
+                        <field name="hours"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sla_list" model="ir.ui.view">
+        <field name="model">custom.helpdesk.sla</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="team_id"/>
+                <field name="priority"/>
+                <field name="hours"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="sla_action" model="ir.actions.act_window">
+        <field name="name">SLA Policies</field>
+        <field name="res_model">custom.helpdesk.sla</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

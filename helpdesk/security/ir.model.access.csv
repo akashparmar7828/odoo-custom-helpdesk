@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_team_manager,access_team_manager,model_custom_helpdesk_team,helpdesk.group_helpdesk_manager,1,1,1,1
+access_sla_manager,access_sla_manager,model_custom_helpdesk_sla,helpdesk.group_helpdesk_manager,1,1,1,1
+access_stage_manager,access_stage_manager,model_custom_helpdesk_stage,helpdesk.group_helpdesk_manager,1,1,1,1
+access_ticket_manager,access_ticket_manager,model_custom_helpdesk_ticket,helpdesk.group_helpdesk_manager,1,1,1,1
+
+access_team_agent_read,access_team_agent_read,model_custom_helpdesk_team,helpdesk.group_helpdesk_agent,1,0,0,0
+access_sla_agent_read,access_sla_agent_read,model_custom_helpdesk_sla,helpdesk.group_helpdesk_agent,1,0,0,0
+access_stage_agent_read,access_stage_agent_read,model_custom_helpdesk_stage,helpdesk.group_helpdesk_agent,1,0,0,0
+access_ticket_agent,access_ticket_agent,model_custom_helpdesk_ticket,helpdesk.group_helpdesk_agent,1,1,1,0
+
+access_ticket_timesheet_agent,access_ticket_timesheet_agent,model_custom_helpdesk_ticket_timesheet,helpdesk.group_helpdesk_agent,1,1,1,1
+access_ticket_timesheet_manager,access_ticket_timesheet_manager,model_custom_helpdesk_ticket_timesheet,helpdesk.group_helpdesk_manager,1,1,1,1

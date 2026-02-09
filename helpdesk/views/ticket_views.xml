@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ticket_form" model="ir.ui.view">
+        <field name="name">custom.helpdesk.ticket.form</field>
+        <field name="model">custom.helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <form string="Ticket">
+                <header>
+                    <field name="stage_id"
+                           widget="statusbar"
+                           statusbar_visible="New,Assigned,Done"
+                           statusbar_colors='{"Assigned":"warning","Done":"success"}'/>
+
+                    <button name="action_done"
+                            type="object"
+                            string="Mark as Done"
+                            class="btn-primary"
+                            invisible="stage_id.name == 'Done'"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Short summary of the issue"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Assignment">
+                            <field name="team_id"/>
+                            <field name="user_id"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+
+                        <group string="Customer">
+                            <field name="partner_id"/>
+                            <field name="phone" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Service Level Agreement">
+                        <group>
+                            <field name="sla_deadline"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" placeholder="Describe the issue in detail"/>
+                        </page>
+
+                        <page string="Timesheets" invisible="use_timesheet == False">
+                            <field name="timesheet_ids">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="employee_id"/>
+                                    <field name="description"/>
+                                    <field name="time_spent"/>
+                                    <field name="billable" invisible="parent.use_time_billing == False"/>
+                                    <field name="hourly_rate" invisible="parent.use_time_billing == False"/>
+                                    <field name="amount" readonly="1" invisible="parent.use_time_billing == False"/>
+                                    <field name="invoice_id" readonly="1" invisible="parent.use_time_billing == False"/>
+
+                                    <button name="action_create_invoice"
+                                            type="object"
+                                            string="Create Invoice"
+                                            class="btn-primary"
+                                            invisible="parent.use_time_billing == False or invoice_id != False"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <chatter>
+                    <field name="message_ids"/>
+                    <field name="activity_ids"/>
+                </chatter>
+            </form>
+        </field>
+    </record>
+
+    <record id="ticket_list" model="ir.ui.view">
+        <field name="name">custom.helpdesk.ticket.list</field>
+        <field name="model">custom.helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <list string="Tickets"
+                  default_order="priority desc, sla_deadline asc"
+                  decoration-warning="stage_id.name == 'Assigned'"
+                  decoration-success="stage_id.name == 'Done'">
+
+                <field name="priority" widget="priority"/>
+                <field name="name"/>
+                <field name="team_id"/>
+                <field name="user_id" widget="many2one_avatar"/>
+                <field name="partner_id"/>
+                <field name="stage_id"/>
+                <field name="sla_deadline"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_ticket_all" model="ir.actions.act_window">
+        <field name="name">Tickets</field>
+        <field name="res_model">custom.helpdesk.ticket</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

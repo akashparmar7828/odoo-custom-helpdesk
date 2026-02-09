@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="helpdesk_root" name="Helpdesk" sequence="10"/>
+
+    <menuitem id="menu_ticket"
+              name="Tickets"
+              parent="helpdesk_root"
+              action="helpdesk.action_ticket_all"
+              sequence="20"/>
+
+    <menuitem id="menu_helpdesk_config"
+              name="Configuration"
+              parent="helpdesk_root"
+              sequence="90"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_helpdesk_team"
+              name="Helpdesk Teams"
+              parent="menu_helpdesk_config"
+              action="helpdesk.team_action"
+              sequence="1"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_helpdesk_sla"
+              name="SLA Policies"
+              parent="menu_helpdesk_config"
+              action="helpdesk.sla_action"
+              sequence="2"
+              groups="base.group_system"/>
+</odoo>

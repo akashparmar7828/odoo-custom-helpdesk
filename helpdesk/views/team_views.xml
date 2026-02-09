@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="team_form" model="ir.ui.view">
+        <field name="name">custom.helpdesk.team.form</field>
+        <field name="model">custom.helpdesk.team</field>
+        <field name="arch" type="xml">
+            <form string="Helpdesk Team">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <field name="description"/>
+                    </group>
+
+                    <group string="Visibility &amp; Assignment" col="2">
+                        <group>
+                            <field name="visibility"/>
+                            <field name="member_ids" widget="many2many_tags" domain="[('share','=',False)]"/>
+                            <field name="assign_method"/>
+                        </group>
+                    </group>
+
+                    <group string="Channels" col="2">
+                        <group>
+                            <field name="use_alias"/>
+                            <field name="alias_name" invisible="use_alias == False"/>
+                            <field name="alias_id" readonly="1" invisible="use_alias == False"/>
+                        </group>
+                    </group>
+
+                    <group string="Performance" col="2">
+                        <group>
+                            <field name="use_sla"/>
+                            <field name="working_hours_id" invisible="use_sla == False"/>
+                        </group>
+                    </group>
+
+                    <group string="Track &amp; Bill Time" col="2">
+                        <group>
+                            <field name="use_timesheet"/>
+                        </group>
+                        <group>
+                            <field name="use_time_billing"/>
+                        </group>
+                    </group>
+                </sheet>
+
+                <chatter>
+                    <field name="message_ids"/>
+                    <field name="activity_ids"/>
+                </chatter>
+            </form>
+        </field>
+    </record>
+
+    <record id="team_list" model="ir.ui.view">
+        <field name="name">custom.helpdesk.team.list</field>
+        <field name="model">custom.helpdesk.team</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="alias_email"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="team_action" model="ir.actions.act_window">
+        <field name="name">Helpdesk Teams</field>
+        <field name="res_model">custom.helpdesk.team</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
